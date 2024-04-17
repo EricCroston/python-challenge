@@ -14,9 +14,6 @@ with open(election_data) as csvfile:
 	# store and skip the column headers
 	csv_header = next(csvreader)
 
-	#define variables
-
-
 	# convert data to list of dictionaries
 	election_data = []
 	candidates = []
@@ -31,11 +28,17 @@ with open(election_data) as csvfile:
 			})
 		candidates.append(candidate)
 
-	# calculate total number of votes each candidate won
-	candidates_set = set(candidates)
-	candidate_one = list(candidates_set)[0]
-	candidate_two = list(candidates_set)[1]
-	candidate_three = list(candidates_set)[2]
+	# find candidate names and calculate total number of votes each candidate won
+	candidate_one = 'name'
+	candidate_two = 'name'
+	candidate_three = 'name'
+	for x in candidates:
+		if candidate_one == 'name':
+			candidate_one = x
+		elif candidate_one != x and candidate_two == 'name':
+			candidate_two = x
+		elif candidate_one != x and candidate_two != x and candidate_three == 'name':
+			candidate_three = x
 	candidate_one_votes = 0
 	candidate_two_votes = 0
 	candidate_three_votes = 0
