@@ -2,9 +2,6 @@
 import os
 import csv
 
-print("Financial Analysis")
-print("----------------------------")
-
 # map the resource file
 budget_data = os.path.join("Resources", "budget_data.csv")
 
@@ -39,26 +36,53 @@ with open(budget_data) as csvfile:
 			})
 		prev_month_profit_loss = month_profit_loss
 
+	# create output variables
+	header = ('Financial Analysis')
+	seperator = ('----------------------------')
+
 	# calculate and display total number of months included in the dataset
 	total_months = (len(budget_data))
-	print(f"Total Months: ", total_months)
+	total_months_output = ('Total Months: ' + str(total_months))
 	
 	# display net total "Profit/Losses" over the entire period
-	print(f"Total: $", total_profit_loss)
+	total_profit_loss_output = ('Total: $' + str(total_profit_loss))
 	
 	# calculate and display changes in "Profit/Losses" over the entire period, and then the average of those changes
 	average_change = round(((sum([month["Profit Change"] for month in budget_data]))) / (total_months -1), 2)
-	print(f"Average Change: $", average_change)
+	average_change_output = ('Average Change: $' + str(average_change))
 	
 	# calculate and display greatest increase in profits
 	max_change = round(max([month["Profit Change"] for month in budget_data]))
 	for month in budget_data:
 		if month["Profit Change"] == max_change:
-			print(f"Greatest Increase in Profits: ", month["Date"],  " ($", max_change, ")")
+			max_change_output = ("Greatest Increase in Profits: " + str(month["Date"]) + " ($" + str(max_change) + ")")
 	
 	# calculate and display greatest decrease in profits
 	min_change = round(min([month["Profit Change"] for month in budget_data]))
 	for month in budget_data:
 		if month["Profit Change"] == min_change:
-			print(f"Greatest Decrease in Profits: ", month["Date"], " ($", min_change, ")")
-	
+			min_change_output = ("Greatest Decrease in Profits: " + str(month["Date"]) + " ($" + str(min_change) + ")")
+
+
+# output to terminal and text file
+# create list of outputs
+output = [
+	header, 
+	seperator, 
+	total_months_output, 
+	total_profit_loss_output, 
+	average_change_output,
+	max_change_output,
+	min_change_output
+	]
+print('\n')
+for line in output:
+	print(line)
+print('\n')
+# map the analysis file and write the file
+financial_analysis = os.path.join("analysis", "financial_analysis.txt")
+with open(financial_analysis, 'w') as f:
+	for line in output:
+		f.write(line)
+		f.write('\n')
+		

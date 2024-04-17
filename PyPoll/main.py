@@ -2,9 +2,6 @@
 import os
 import csv
 
-print("Election Results")
-print("------------------------")
-
 # map the resource file
 election_data = os.path.join("Resources", "election_data.csv")
 
@@ -50,11 +47,14 @@ with open(election_data) as csvfile:
 		elif x == candidate_three:
 			candidate_three_votes += 1
 	
+	# create output variables
+	header = ("Election Results")
+	seperator = ("------------------------")
 
 	# calculate and display total number of votes
 	total_votes = (len(election_data))
-	print(f"Total Votes:", + total_votes)
-	print("------------------------")
+	total_votes_output = ('Total Votes:' + str(total_votes))
+	#print("------------------------")
 
 	# calculate percentage of votes each candidate won
 	candidate_one_percentage = (candidate_one_votes / total_votes) * 100
@@ -65,9 +65,9 @@ with open(election_data) as csvfile:
 	candidate_three_percentage = round(candidate_three_percentage, 3)
 
 	# display candidate name, percentage vootes and total number of votes each candidate won
-	print(candidate_one + ": " + str(candidate_one_percentage) + "% " + "(" + str(candidate_one_votes) + ")")
-	print(candidate_two + ": " + str(candidate_two_percentage) + "% " + "(" + str(candidate_two_votes) + ")")
-	print(candidate_three + ": " + str(candidate_three_percentage) + "%" + "(" + str(candidate_three_votes) + ")")
+	candidate_one_output = (candidate_one + ": " + str(candidate_one_percentage) + "% " + "(" + str(candidate_one_votes) + ")")
+	candidate_two_output = (candidate_two + ": " + str(candidate_two_percentage) + "% " + "(" + str(candidate_two_votes) + ")")
+	candidate_three_output = (candidate_three + ": " + str(candidate_three_percentage) + "%" + "(" + str(candidate_three_votes) + ")")
 
 	# calculate and display winner of the election based on popular vote
 	if candidate_one_votes > candidate_two_votes and candidate_one_votes > candidate_three_votes:
@@ -76,6 +76,31 @@ with open(election_data) as csvfile:
 		winner = candidate_two
 	else:
 		winner = candidate_three
-	print("------------------------")
-	print(f"Winner: ", winner)
-	print("------------------------")
+	#print("------------------------")
+	winner_output = ('Winner: ' + str(winner))
+	#print("------------------------")
+
+# output to terminal and text file
+# create list of outputs
+output = [
+	header, 
+	seperator, 
+	total_votes_output,
+	seperator,
+	candidate_one_output,
+	candidate_two_output,
+	candidate_three_output,
+	seperator,
+	winner_output,
+	seperator
+	]
+print('\n')
+for line in output:
+	print(line)
+print('\n')
+# map the analysis file and write the file
+election_results = os.path.join("analysis", "election_results.txt")
+with open(election_results, 'w') as f:
+	for line in output:
+		f.write(str(line))
+		f.write('\n')

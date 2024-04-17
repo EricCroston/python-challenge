@@ -46,4 +46,4 @@ Commented (5 points)
 Sources
 
 https://stackoverflow.com/questions/26552008/find-max-number-in-csv-file-in-python
-Used for max and min functions
+Used for average, max and min functions
