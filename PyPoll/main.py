@@ -11,7 +11,7 @@ with open(election_data) as csvfile:
 	# store and skip the column headers
 	csv_header = next(csvreader)
 
-	# convert data to list of dictionaries
+	# convert data to dictionary of lists
 	election_data = []
 	candidates = []
 	for x in csvreader:
@@ -49,14 +49,13 @@ with open(election_data) as csvfile:
 	
 	# create output variables
 	header = ("Election Results")
-	seperator = ("------------------------")
+	seperator = ("-------------------------")
 
-	# calculate and display total number of votes
+	# calculate and create output variables for total number of votes
 	total_votes = (len(election_data))
-	total_votes_output = ('Total Votes:' + str(total_votes))
-	#print("------------------------")
+	total_votes_output = ('Total Votes: ' + str(total_votes))
 
-	# calculate percentage of votes each candidate won
+	# calculate and create output variables for percentage of votes each candidate won
 	candidate_one_percentage = (candidate_one_votes / total_votes) * 100
 	candidate_one_percentage = round(candidate_one_percentage, 3)
 	candidate_two_percentage = (candidate_two_votes / total_votes) * 100
@@ -64,21 +63,19 @@ with open(election_data) as csvfile:
 	candidate_three_percentage = (candidate_three_votes / total_votes) * 100
 	candidate_three_percentage = round(candidate_three_percentage, 3)
 
-	# display candidate name, percentage vootes and total number of votes each candidate won
+	# create output variables for candidate name, percentage votes and total number of votes won
 	candidate_one_output = (candidate_one + ": " + str(candidate_one_percentage) + "% " + "(" + str(candidate_one_votes) + ")")
 	candidate_two_output = (candidate_two + ": " + str(candidate_two_percentage) + "% " + "(" + str(candidate_two_votes) + ")")
-	candidate_three_output = (candidate_three + ": " + str(candidate_three_percentage) + "%" + "(" + str(candidate_three_votes) + ")")
+	candidate_three_output = (candidate_three + ": " + str(candidate_three_percentage) + "% " + "(" + str(candidate_three_votes) + ")")
 
-	# calculate and display winner of the election based on popular vote
+	# calculate and create output variables for winner of the election based on popular vote
 	if candidate_one_votes > candidate_two_votes and candidate_one_votes > candidate_three_votes:
 		winner = candidate_one
 	elif candidate_two_votes > candidate_three_votes and candidate_two_votes > candidate_one_votes:
 		winner = candidate_two
 	else:
 		winner = candidate_three
-	#print("------------------------")
 	winner_output = ('Winner: ' + str(winner))
-	#print("------------------------")
 
 # output to terminal and text file
 # create list of outputs

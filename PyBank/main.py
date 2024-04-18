@@ -8,7 +8,7 @@ budget_data = os.path.join("Resources", "budget_data.csv")
 # read the CSV file and store in csvreader
 with open(budget_data) as csvfile:
 	csvreader = csv.reader(csvfile, delimiter=',')
-	# skip the column headers
+	# skip and store the column headers
 	csv_header = next(csvreader)
 
 	#define variables
@@ -26,7 +26,7 @@ with open(budget_data) as csvfile:
 		# calculate changes in "Profit/Losses" for each month
 		if prev_month_profit_loss != 0.1:
 			profit_change = month_profit_loss - prev_month_profit_loss
-		# create dictionary to analyze greatest increase and decrease
+		# create dictionary to analyze data
 		date = x[0]
 		profit_loss = float(x[1])
 		budget_data.append({
@@ -40,24 +40,24 @@ with open(budget_data) as csvfile:
 	header = ('Financial Analysis')
 	seperator = ('----------------------------')
 
-	# calculate and display total number of months included in the dataset
+	# calculate and create output variable for total number of months included in the dataset
 	total_months = (len(budget_data))
 	total_months_output = ('Total Months: ' + str(total_months))
 	
-	# display net total "Profit/Losses" over the entire period
+	# create output variable for net total "Profit/Losses" over the entire period
 	total_profit_loss_output = ('Total: $' + str(total_profit_loss))
 	
-	# calculate and display changes in "Profit/Losses" over the entire period, and then the average of those changes
-	average_change = round(((sum([month["Profit Change"] for month in budget_data]))) / (total_months -1), 2)
+	# calculate and create output variable for changes in "Profit/Losses" over the entire period, and then the average of those changes
+	average_change = round(((sum([month["Profit Change"] for month in budget_data]))) / (total_months - 1), 2)
 	average_change_output = ('Average Change: $' + str(average_change))
 	
-	# calculate and display greatest increase in profits
+	# calculate and create output variable for greatest increase in profits
 	max_change = round(max([month["Profit Change"] for month in budget_data]))
 	for month in budget_data:
 		if month["Profit Change"] == max_change:
 			max_change_output = ("Greatest Increase in Profits: " + str(month["Date"]) + " ($" + str(max_change) + ")")
 	
-	# calculate and display greatest decrease in profits
+	# calculate and create output variable for greatest decrease in profits
 	min_change = round(min([month["Profit Change"] for month in budget_data]))
 	for month in budget_data:
 		if month["Profit Change"] == min_change:
@@ -68,7 +68,7 @@ with open(budget_data) as csvfile:
 # create list of outputs
 output = [
 	header, 
-	seperator, 
+	seperator,
 	total_months_output, 
 	total_profit_loss_output, 
 	average_change_output,
